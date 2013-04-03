@@ -1,0 +1,51 @@
+﻿@model Tournament.ViewModels.PlayerViewModel
+
+    <fieldset>
+        <legend>PlayerViewModel</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FirstName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FirstName)
+            @Html.ValidationMessageFor(model => model.FirstName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LastName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LastName)
+            @Html.ValidationMessageFor(model => model.LastName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NickName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NickName)
+            @Html.ValidationMessageFor(model => model.NickName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Twitter)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Twitter)
+            @Html.ValidationMessageFor(model => model.Twitter)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Slug)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Slug)
+            @Html.ValidationMessageFor(model => model.Slug)
+        </div>
+        
+        @Html.HiddenFor(model => model.Id)
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
