@@ -52,7 +52,7 @@ namespace Tournament.Controllers
             {
                 return HttpNotFound(string.Format("Team {0} does not exist", id));
             }
-            return View("Edit", model);
+            return View(model);
         }
 
         //[Authorize]
@@ -67,6 +67,7 @@ namespace Tournament.Controllers
             return View(model);
         }
 
+        //[Authorize]
         [HttpGet]
         public ActionResult Delete(string id)
         {
