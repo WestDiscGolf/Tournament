@@ -7,5 +7,6 @@
         public string NickName { get; set; }
         public string Twitter { get; set; }
         public string Slug { get; set; }
+        public Team Team { get; set; }
     }
 }

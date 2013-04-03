@@ -38,6 +38,8 @@
     </div>
     
     @Html.DisplayFor(model => model.HomeCourse)
+    
+    @Html.ActionLink("Add new player", "Create", "Player", new { teamId = Model.Id }, null)
 
 </fieldset>
 <p>

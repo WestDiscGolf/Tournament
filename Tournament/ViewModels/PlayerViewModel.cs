@@ -13,6 +13,8 @@ namespace Tournament.ViewModels
         public string Twitter { get; set; }
         [Required]
         public string Slug { get; set; }
+        [Required]
+        public string TeamId { get; set; }
 
         public string FullName
         {
