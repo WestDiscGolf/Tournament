@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using Tournament.Entities;
 using Tournament.ViewModels;
 
@@ -8,37 +9,12 @@ namespace Tournament.Controllers
 {
     public class PlayerController : BaseController
     {
-        private PlayerViewModel ToViewModel(Player player)
-        {
-            var vm = new PlayerViewModel();
-            vm.Id = player.Id;
-            vm.FirstName = player.FirstName;
-            vm.LastName = player.LastName;
-            vm.NickName = player.NickName;
-            vm.Twitter = player.Twitter;
-            vm.Slug = player.Slug;
-            return vm;
-        }
-
-        private Player ToEntity(PlayerViewModel viewModel)
-        {
-            var player = new Player();
-            player.Id = viewModel.Id;
-            player.FirstName = viewModel.FirstName;
-            player.LastName = viewModel.LastName;
-            player.NickName = viewModel.NickName;
-            player.Twitter = viewModel.Twitter;
-            player.Slug = viewModel.Slug;
-            return player;
-        }
-
         public ActionResult Index()
         {
             // execute the query to allow for the IEnumerable select execution below
             var players = RavenSession.Query<Player>().Customize(x => x.WaitForNonStaleResults(TimeSpan.FromSeconds(5))).ToList();
 
-            // todo: use automapper?!
-            var vm = players.Select(player => ToViewModel(player)).ToList();
+            var vm = players.Select(Mapper.Map<PlayerViewModel>).ToList();
             
             return View(vm);
         }
@@ -51,7 +27,7 @@ namespace Tournament.Controllers
                 return HttpNotFound(string.Format("Player {0} does not exist", id));
             }
 
-            var vm = ToViewModel(player);
+            var vm = Mapper.Map<PlayerViewModel>(player);
 
             return View(vm);
         }
@@ -69,7 +45,7 @@ namespace Tournament.Controllers
         {
             if (ModelState.IsValid)
             {
-                var player = ToEntity(viewModel);
+                var player = Mapper.Map<Player>(viewModel);
                 RavenSession.Store(player, "players/");
                 return RedirectToAction("Index");
             }
@@ -86,7 +62,7 @@ namespace Tournament.Controllers
             {
                 return HttpNotFound(string.Format("Team {0} does not exist", id));
             }
-            return View(ToViewModel(model));
+            return View(Mapper.Map<PlayerViewModel>(model));
         }
 
         //[Authorize]
@@ -95,7 +71,7 @@ namespace Tournament.Controllers
         {
             if (ModelState.IsValid)
             {
-                var model = ToEntity(viewModel);
+                var model = Mapper.Map<Player>(viewModel);
                 RavenSession.Store(model);
                 return RedirectToAction("Index");
             }
@@ -111,7 +87,7 @@ namespace Tournament.Controllers
             {
                 return HttpNotFound(string.Format("Player {0} does not exist", id));
             }
-            return View(ToViewModel(model));
+            return View(Mapper.Map<PlayerViewModel>(model));
         }
 
         //[Authorize]

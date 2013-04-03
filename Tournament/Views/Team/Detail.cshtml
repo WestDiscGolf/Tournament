@@ -1,4 +1,4 @@
-﻿@model Tournament.Entities.Team
+﻿@model Tournament.ViewModels.TeamViewModel
 
 @{
     ViewBag.Title = "Detail";
@@ -37,7 +37,7 @@
         @Html.DisplayFor(model => model.Slug)
     </div>
     
-    @Html.DisplayFor(model => model.Course)
+    @Html.DisplayFor(model => model.HomeCourse)
 
 </fieldset>
 <p>

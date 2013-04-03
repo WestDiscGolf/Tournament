@@ -29,6 +29,7 @@ namespace Tournament
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+            AutoMapperConfig.RegisterMappings();
         }
 
         private static void RegisterRazorViewEngine()
