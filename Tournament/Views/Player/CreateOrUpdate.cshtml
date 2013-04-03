@@ -43,6 +43,16 @@
             @Html.ValidationMessageFor(model => model.Slug)
         </div>
         
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TeamId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("TeamId", (IEnumerable<SelectListItem>)ViewBag.Teams)
+            @Html.ValidationMessageFor(model => model.TeamId)
+        </div>
+        
+        
+
         @Html.HiddenFor(model => model.Id)
 
         <p>
