@@ -1,0 +1,17 @@
+﻿@model Tournament.Entities.Team
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    @Html.Partial("CreateOrUpdate", Model)
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
