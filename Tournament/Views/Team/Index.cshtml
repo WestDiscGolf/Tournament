@@ -12,6 +12,6 @@
 <ul>
     @foreach (var team in Model)
     {
-        <li>@Html.ActionLink(team.Name, "detail", "team", new { id = team.Id.Id(), slug = team.Slug }, null)  - @Html.ActionLink("Edit", "Edit", new { id = team.Id }) - @Html.ActionLink("Delete", "Delete", new { id = team.Id })</li>   
+        <li>@Html.ActionLink(team.Name, "detail", new { id = team.Id.Id(), slug = team.Slug }, null)  - @Html.ActionLink("Edit", "Edit", new { id = team.Id }) - @Html.ActionLink("Delete", "Delete", new { id = team.Id })</li>   
     }
 </ul>
