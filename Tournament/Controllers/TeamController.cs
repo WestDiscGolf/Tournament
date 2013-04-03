@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using Tournament.Entities;
+using Tournament.ViewModels;
 
 namespace Tournament.Controllers
 {
@@ -8,8 +11,11 @@ namespace Tournament.Controllers
     {
         public ActionResult Index()
         {
-            var teams = RavenSession.Query<Team>().Customize(x => x.WaitForNonStaleResults(TimeSpan.FromSeconds(5)));
-            return View(teams);
+            var teams = RavenSession.Query<Team>().Customize(x => x.WaitForNonStaleResults(TimeSpan.FromSeconds(5))).ToList();
+
+            var vm = teams.Select(Mapper.Map<TeamViewModel>).ToList();
+
+            return View(vm);
         }
 
         public ActionResult Detail(int id)
@@ -19,7 +25,8 @@ namespace Tournament.Controllers
             {
                 return HttpNotFound(string.Format("Team {0} does not exist", id));
             }
-            return View(model);
+
+            return View(Mapper.Map<TeamViewModel>(model));
         }
 
         //[Authorize]
@@ -31,16 +38,17 @@ namespace Tournament.Controllers
 
         //[Authorize]
         [HttpPost]
-        public ActionResult Create(Team model)
+        public ActionResult Create(TeamViewModel viewModel)
         {
             // todo: add in the authorise token to avoid xss
             if (ModelState.IsValid)
             {
+                var team = Mapper.Map<Team>(viewModel);
                 // set the id to be the object/ to allow for incrementing id
-                RavenSession.Store(model, "teams/");
+                RavenSession.Store(team, "teams/");
                 return RedirectToAction("Index");
             }
-            return View(model);
+            return View(viewModel);
         }
 
         //[Authorize]
@@ -52,19 +60,20 @@ namespace Tournament.Controllers
             {
                 return HttpNotFound(string.Format("Team {0} does not exist", id));
             }
-            return View(model);
+            return View(Mapper.Map<TeamViewModel>(model));
         }
 
         //[Authorize]
         [HttpPost]
-        public ActionResult Edit(Team model)
+        public ActionResult Edit(TeamViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                RavenSession.Store(model);
+                var team = Mapper.Map<Team>(viewModel);
+                RavenSession.Store(team);
                 return RedirectToAction("Index");
             }
-            return View(model);
+            return View(viewModel);
         }
 
         //[Authorize]
@@ -76,7 +85,7 @@ namespace Tournament.Controllers
             {
                 return HttpNotFound(string.Format("Team {0} does not exist", id));
             }
-            return View(model);
+            return View(Mapper.Map<TeamViewModel>(model));
         }
 
         //[Authorize]

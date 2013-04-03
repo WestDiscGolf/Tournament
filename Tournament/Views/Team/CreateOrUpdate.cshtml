@@ -1,4 +1,4 @@
-﻿@model Tournament.Entities.Team
+﻿@model Tournament.ViewModels.TeamViewModel
 
     <fieldset>
         <legend>Team</legend>
@@ -36,8 +36,8 @@
         </div>
         
         <div>
-            <h2>Course</h2>
-            @Html.EditorFor(model => model.Course)    
+            <h2>HomeCourse</h2>
+            @Html.EditorFor(model => model.HomeCourse)    
         </div>
         
         @Html.HiddenFor(model => model.Id)
