@@ -36,19 +36,7 @@ namespace Tournament.Controllers
         [HttpGet]
         public ActionResult Create(string teamId)
         {
-            if (!string.IsNullOrWhiteSpace(teamId))
-            {
-                var team = RavenSession.Load<Team>(teamId);
-                ViewBag.Teams = new[] {new SelectListItem {Text = team.Name, Value = team.Id, Selected = true}};
-            }
-            else
-            {
-                var teams = RavenSession.Query<Team>().OrderBy(x => x.Name);
-                ViewBag.Teams = from team in teams
-                                orderby team.Name
-                                select new SelectListItem {Text = team.Name, Value = team.Id};
-            }
-
+            InitialiseTeamList(teamId);
             return View();
         }
 
@@ -76,12 +64,7 @@ namespace Tournament.Controllers
             {
                 return HttpNotFound(string.Format("Team {0} does not exist", id));
             }
-
-            var teams = RavenSession.Query<Team>().OrderBy(x => x.Name);
-            ViewBag.Teams = from team in teams
-                            orderby team.Name
-                            select new SelectListItem { Text = team.Name, Value = team.Id };
-
+            InitialiseTeamList();
             return View(Mapper.Map<PlayerViewModel>(model));
         }
 
@@ -96,10 +79,7 @@ namespace Tournament.Controllers
                 RavenSession.Store(model);
                 return RedirectToAction("Index");
             }
-            var teams = RavenSession.Query<Team>().OrderBy(x => x.Name);
-            ViewBag.Teams = from team in teams
-                            orderby team.Name
-                            select new SelectListItem { Text = team.Name, Value = team.Id };
+            InitialiseTeamList();
             return View(viewModel);
         }
 
@@ -127,6 +107,18 @@ namespace Tournament.Controllers
             }
             RavenSession.Delete(model);
             return RedirectToAction("Index");
+        }
+
+        private void InitialiseTeamList(string teamId = "")
+        {
+            var teams = RavenSession.Query<Team>().OrderBy(x => x.Name).ToList();
+            ViewBag.Teams = new[] { new SelectListItem { Text = "", Value = "" } }.Union(from team in teams
+                                                                                         select new SelectListItem
+                                                                                         {
+                                                                                             Text = team.Name,
+                                                                                             Value = team.Id,
+                                                                                             Selected = (string.Compare(team.Id, teamId, StringComparison.InvariantCultureIgnoreCase) == 0)
+                                                                                         });
         }
     }
 }

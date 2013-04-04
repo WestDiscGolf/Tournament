@@ -50,6 +50,13 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.FullName)
     </div>
+    
+   <div class="display-label">
+         @Html.DisplayNameFor(model => model.Team)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Team.Name)
+    </div>
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |

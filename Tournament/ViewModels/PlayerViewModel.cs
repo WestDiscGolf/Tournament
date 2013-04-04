@@ -15,6 +15,7 @@ namespace Tournament.ViewModels
         public string Slug { get; set; }
         [Required]
         public string TeamId { get; set; }
+        public TeamViewModel Team { get; set; }
 
         public string FullName
         {
