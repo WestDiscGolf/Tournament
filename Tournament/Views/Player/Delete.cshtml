@@ -8,7 +8,8 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <fieldset>
-    <legend>PlayerViewModel</legend>
+    <legend>Player</legend>
+
     <div class="display-label">
          @Html.DisplayNameFor(model => model.FullName)
     </div>
@@ -17,6 +18,9 @@
     </div>
 </fieldset>
 @using (Html.BeginForm()) {
+    
+    @Html.AntiForgeryToken()
+    
     <p>
         <input type="submit" value="Delete" /> |
         @Html.ActionLink("Back to List", "Index")

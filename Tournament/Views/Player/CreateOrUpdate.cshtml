@@ -1,7 +1,9 @@
 ﻿@model Tournament.ViewModels.PlayerViewModel
 
     <fieldset>
-        <legend>PlayerViewModel</legend>
+        <legend>Player</legend>
+        
+        @Html.AntiForgeryToken()
 
         <div class="editor-label">
             @Html.LabelFor(model => model.FirstName)

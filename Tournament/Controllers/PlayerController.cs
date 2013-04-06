@@ -49,6 +49,7 @@ namespace Tournament.Controllers
 
         //[Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(PlayerViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -77,6 +78,7 @@ namespace Tournament.Controllers
 
         //[Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(PlayerViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -105,6 +107,7 @@ namespace Tournament.Controllers
         //[Authorize]
         [HttpPost]
         [ActionName("delete")]
+        [ValidateAntiForgeryToken]
         public ActionResult ConfirmDelete(string id)
         {
             var model = RavenSession.Load<Player>(id);

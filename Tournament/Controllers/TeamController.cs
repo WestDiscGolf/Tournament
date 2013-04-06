@@ -37,9 +37,9 @@ namespace Tournament.Controllers
 
         //[Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(TeamViewModel viewModel)
         {
-            // todo: add in the authorise token to avoid xss
             if (ModelState.IsValid)
             {
                 var team = Mapper.Map<Team>(viewModel);
@@ -64,6 +64,7 @@ namespace Tournament.Controllers
 
         //[Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(TeamViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -90,6 +91,7 @@ namespace Tournament.Controllers
         //[Authorize]
         [HttpPost]
         [ActionName("delete")]
+        [ValidateAntiForgeryToken]
         public ActionResult ConfirmDelete(string id)
         {
             var model = RavenSession.Load<Team>(id);
