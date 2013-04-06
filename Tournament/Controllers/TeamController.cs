@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
@@ -12,9 +13,7 @@ namespace Tournament.Controllers
         public ActionResult Index()
         {
             var teams = RavenSession.Query<Team>().Customize(x => x.WaitForNonStaleResults(TimeSpan.FromSeconds(5))).ToList();
-
-            var vm = teams.Select(Mapper.Map<TeamViewModel>).ToList();
-
+            var vm = Mapper.Map<IEnumerable<TeamViewModel>>(teams);
             return View(vm);
         }
 

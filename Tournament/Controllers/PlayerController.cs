@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
@@ -11,11 +12,9 @@ namespace Tournament.Controllers
     {
         public ActionResult Index()
         {
-            // execute the query to allow for the IEnumerable select execution below
+            // execute the query to allow for the IEnumerable mapping
             var players = RavenSession.Query<Player>().Customize(x => x.WaitForNonStaleResults(TimeSpan.FromSeconds(5))).ToList();
-
-            var vm = players.Select(Mapper.Map<PlayerViewModel>).ToList();
-            
+            var vm = Mapper.Map<IEnumerable<PlayerViewModel>>(players);
             return View(vm);
         }
 
@@ -30,6 +29,14 @@ namespace Tournament.Controllers
             var vm = Mapper.Map<PlayerViewModel>(player);
 
             return View(vm);
+        }
+
+        [ChildActionOnly]
+        public ActionResult ByTeam(string teamId)
+        {
+            var players = RavenSession.Query<Player>().Where(x => x.Team.Id == teamId).ToList();
+            var vm = Mapper.Map<IEnumerable<PlayerViewModel>>(players);
+            return PartialView("_Players", vm);
         }
 
         //[Authorize]
