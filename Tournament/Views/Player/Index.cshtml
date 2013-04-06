@@ -10,12 +10,4 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
-<ul>
-    @foreach (var player in Model)
-    {
-        <li>@Html.ActionLink(player.FullName, "detail", new { id = player.Id.Id(), slug = player.Slug }, null) - @Html.ActionLink("Edit", "Edit", new { id = player.Id }) - @Html.ActionLink("Delete", "Delete", new { id = player.Id })</li>
-@*                    @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
-    }
-</ul>
+@{ Html.RenderPartial("_Players", Model); }
