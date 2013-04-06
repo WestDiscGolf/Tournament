@@ -2,6 +2,8 @@
 
     <fieldset>
         <legend>Team</legend>
+        
+        @Html.AntiForgeryToken()
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Name)
