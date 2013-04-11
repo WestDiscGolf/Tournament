@@ -19,6 +19,14 @@ namespace Tournament
             // Player
             Mapper.CreateMap<Player, PlayerViewModel>();
             Mapper.CreateMap<PlayerViewModel, Player>();
+
+            // Match
+            Mapper.CreateMap<Match, MatchViewModel>();
+            Mapper.CreateMap<MatchViewModel, Match>();
+
+            // Comment
+            Mapper.CreateMap<Comment, CommentViewModel>();
+            Mapper.CreateMap<CommentViewModel, Comment>();
         }
     }
 }

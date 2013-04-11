@@ -1,0 +1,21 @@
+﻿@model Tournament.ViewModels.MatchViewModel
+
+
+class: @Model.Classification - @Model.Result<br/>
+@Html.ActionLink("Edit", "Edit", "Match", new { id = Model.Id }, null) - @Html.ActionLink("Delete", "Delete", "Match", new { id = Model.Id }, null)
+<h2>Home - @Model.HomeTeam.Name</h2>
+<ul>
+    @foreach (var item in Model.HomePlayers)
+    {
+        <li>@item.FullName</li>
+    }
+</ul>
+<h2>Away - @Model.AwayTeam.Name</h2>
+<ul>
+    @foreach (var item in Model.AwayPlayers)
+    {
+        <li>@item.FullName</li>
+    }
+</ul>
+
+<hr/>
