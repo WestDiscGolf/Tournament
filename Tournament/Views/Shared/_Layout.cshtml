@@ -44,5 +44,6 @@
 
         @Scripts.Render("~/bundles/jquery")
         @RenderSection("scripts", required: false)
+        @Raven.Client.MvcIntegration.RavenProfiler.CurrentRequestSessions()
     </body>
 </html>

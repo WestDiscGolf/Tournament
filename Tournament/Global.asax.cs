@@ -43,6 +43,8 @@ namespace Tournament
             Store = new DocumentStore { ConnectionStringName = "RavenDB" };
             Store.Initialize();
             IndexCreation.CreateIndexes(Assembly.GetCallingAssembly(), Store);
+
+            Raven.Client.MvcIntegration.RavenProfiler.InitializeFor(Store);
         }
     }
 }
