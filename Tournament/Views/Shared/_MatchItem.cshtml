@@ -1,8 +1,7 @@
 ﻿@model Tournament.ViewModels.MatchViewModel
 
-
 class: @Model.Classification - @Model.Result<br/>
-@Html.ActionLink("Edit", "Edit", "Match", new { id = Model.Id }, null) - @Html.ActionLink("Delete", "Delete", "Match", new { id = Model.Id }, null)
+@Html.ActionLink("Edit", "Edit", "Match", new { id = Model.Id }, null) - @Html.ActionLink("Delete", "Delete", "Match", new { id = Model.Id }, null) - @Html.ActionLink("Add Comment", "AddToMatch", "Comment", new { matchId = Model.Id }, null)
 <h2>Home - @Model.HomeTeam.Name</h2>
 <ul>
     @foreach (var item in Model.HomePlayers)
@@ -17,5 +16,15 @@ class: @Model.Classification - @Model.Result<br/>
         <li>@item.FullName</li>
     }
 </ul>
+
+@if ((Model.Comments != null) && (Model.Comments.Any()))
+{
+    <h3>@Model.Comments.Count Comment(s)</h3>
+    
+    foreach (var commentViewModel in Model.Comments)
+    {
+        @commentViewModel.Content
+    }
+}
 
 <hr/>

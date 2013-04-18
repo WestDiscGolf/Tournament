@@ -19,7 +19,7 @@ namespace Tournament.ViewModels
         public ICollection<PlayerViewModel> HomePlayers { get; set; }
         public ICollection<string> AwayPlayerIds { get; set; } 
         public ICollection<PlayerViewModel> AwayPlayers { get; set; }
-        //public ICollection<CommentViewModel> Comments { get; set; }
+        public ICollection<CommentViewModel> Comments { get; set; }
 
         public IEnumerable<SelectListItem> HomeTeamsDataSource { get; set; }
         public IEnumerable<SelectListItem> AwayTeamsDataSource { get; set; }
