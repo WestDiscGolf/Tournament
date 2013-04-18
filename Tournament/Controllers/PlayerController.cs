@@ -4,16 +4,25 @@ using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Tournament.Entities;
+using Tournament.Indexes;
 using Tournament.ViewModels;
 
 namespace Tournament.Controllers
 {
     public class PlayerController : BaseController
     {
+        public ActionResult Test()
+        {
+            var results = RavenSession.Query<Result, Player_MatchResults>().ToList();
+
+            return View(results);
+        }
+
         public ActionResult Index()
         {
             // execute the query to allow for the IEnumerable mapping
             var players = RavenSession.Query<Player>().Customize(x => x.WaitForNonStaleResults(TimeSpan.FromSeconds(5))).ToList();
+
             var vm = Mapper.Map<IEnumerable<PlayerViewModel>>(players);
             return View(vm);
         }
