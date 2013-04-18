@@ -14,5 +14,7 @@ namespace Tournament.ViewModels
 
         [Required]
         public string Content { get; set; }
+
+        public string AssociatedItemId { get; set; }
     }
 }
