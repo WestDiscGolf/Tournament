@@ -396,6 +396,9 @@
   <ItemGroup>
     <Content Include="Views\Player\Test.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Match\Detail.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

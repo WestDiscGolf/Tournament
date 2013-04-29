@@ -26,6 +26,19 @@ namespace Tournament.Controllers
             return View(vm);
         }
 
+        public ActionResult Detail(int id)
+        {
+            var match = RavenSession.Load<Match>(id);
+            if (match == null)
+            {
+                return HttpNotFound(string.Format("Match {0} does not exist", id));
+            }
+
+            var vm = Mapper.Map<MatchViewModel>(match);
+
+            return View(vm);
+        }
+
         //[Authorize]
         [HttpGet]
         public ActionResult Create(string homeTeamId = "", string awayTeamId = "")
