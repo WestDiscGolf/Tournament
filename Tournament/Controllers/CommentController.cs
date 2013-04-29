@@ -36,7 +36,7 @@ namespace Tournament.Controllers
 
                 match.Comments.Add(Mapper.Map<Comment>(vm));
                 RavenSession.Store(match);
-                return RedirectToRoute(new {controller = "Match", action = "Index"});
+                return RedirectToRoute(new {controller = "Match", action = "Detail", id = vm.AssociatedItemId.Id() });
             }
             return View("Add", vm);
         }

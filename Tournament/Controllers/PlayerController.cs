@@ -13,7 +13,7 @@ namespace Tournament.Controllers
     {
         public ActionResult Test()
         {
-            var results = RavenSession.Query<Result, Player_MatchResults>().ToList();
+            var results = RavenSession.Query<Result, Player_MatchResults>().OrderByDescending(x => x.Wins).ThenByDescending(x => x.Draws).ToList();
 
             return View(results);
         }

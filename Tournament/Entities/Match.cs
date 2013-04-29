@@ -13,8 +13,6 @@ namespace Tournament.Entities
         public Team AwayTeam { get; set; }
         public ICollection<Player> HomePlayers { get; set; }
         public ICollection<Player> AwayPlayers { get; set; }
-        
-        // todo: come back to comments
         public ICollection<Comment> Comments { get; set; }
     }
 }
