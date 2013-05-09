@@ -5,7 +5,7 @@ namespace Tournament.Entities
 {
     public class Match : RootAggregate
     {
-        // todo: link to leg
+        public string LegId { get; set; }
         public Classification Classification { get; set; }
         public Result Result { get; set; }
         public Team WinningTeam { get; set; }

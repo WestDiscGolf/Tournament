@@ -7,9 +7,10 @@ namespace Tournament.Entities
         public string Name { get; set; }
         public string Slug { get; set; }
 
-        public ICollection<Team> Teams { get; set; } 
+        public ICollection<string> TeamIds { get; set; }
+        public ICollection<string> LegIds { get; set; }
 
-        // legs?
-        // comments?
+        // todo
+        //public ICollection<Comment> Comments { get; set; } 
     }
 }

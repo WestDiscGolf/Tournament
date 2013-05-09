@@ -1,0 +1,6 @@
+﻿@model IEnumerable<Tournament.ViewModels.MatchViewModel>
+
+@foreach (var match in Model)
+{
+    Html.RenderPartial("_MatchItem", match);
+}

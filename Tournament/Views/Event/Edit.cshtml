@@ -1,4 +1,4 @@
-﻿@model Tournament.ViewModels.TeamViewModel
+﻿@model Tournament.ViewModels.EventViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -6,10 +6,11 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
 
-    @Html.Partial("_CreateOrUpdate", Model)
+    @Html.Partial("_CreateOrUpdate")
 }
 
 <div>

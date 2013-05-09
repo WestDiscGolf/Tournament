@@ -26,6 +26,16 @@ namespace Tournament.Controllers
             return View(vm);
         }
 
+        [ChildActionOnly]
+        public ActionResult ByLeg(string legId)
+        {
+            var model = RavenSession.Query<Match>().Customize(x => x.WaitForNonStaleResults(TimeSpan.FromSeconds(5))).Where(x => x.LegId == legId).ToList();
+
+            var vm = Mapper.Map<IEnumerable<MatchViewModel>>(model);
+
+            return PartialView("_Match", vm);
+        }
+
         public ActionResult Detail(int id)
         {
             var match = RavenSession.Load<Match>(id);
@@ -41,12 +51,13 @@ namespace Tournament.Controllers
 
         //[Authorize]
         [HttpGet]
-        public ActionResult Create(string homeTeamId = "", string awayTeamId = "")
+        public ActionResult Create(string homeTeamId = "", string awayTeamId = "", string legId = "")
         {
             var vm = new MatchViewModel
                 {
                     HomeTeamId = homeTeamId,
-                    AwayTeamId = awayTeamId
+                    AwayTeamId = awayTeamId,
+                    LegId = legId
                 };
 
             InitialiseReferenceData(vm);
@@ -79,7 +90,6 @@ namespace Tournament.Controllers
                     }
                     entity.WinningTeam = RavenSession.Load<Team>(viewModel.WinningTeamId);
                 }
-
                 entity.HomeTeam = RavenSession.Load<Team>(viewModel.HomeTeamId);
                 entity.AwayTeam = RavenSession.Load<Team>(viewModel.AwayTeamId);
                 entity.HomePlayers = RavenSession.Load<Player>(viewModel.HomePlayerIds);
