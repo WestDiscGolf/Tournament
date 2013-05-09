@@ -27,6 +27,18 @@ namespace Tournament
             // Comment
             Mapper.CreateMap<Comment, CommentViewModel>();
             Mapper.CreateMap<CommentViewModel, Comment>();
+
+            //Event
+            Mapper.CreateMap<Event, EventViewModel>();
+            Mapper.CreateMap<EventViewModel, Event>();
+
+            // Leg
+            Mapper.CreateMap<Leg, LegViewModel>();
+            Mapper.CreateMap<LegViewModel, Leg>();
+
+            // Extra
+            Mapper.CreateMap<Extra, ExtraViewModel>();
+            Mapper.CreateMap<ExtraViewModel, Extra>();
         }
     }
 }

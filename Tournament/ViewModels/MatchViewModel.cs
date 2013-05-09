@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using Tournament.Enumerations;
 
@@ -7,7 +8,9 @@ namespace Tournament.ViewModels
     public class MatchViewModel
     {
         public string Id { get; set; }
+        [Required]
         public Classification Classification { get; set; }
+        [Required]
         public Result Result { get; set; }
         public string WinningTeamId { get; set; }
         public TeamViewModel WinningTeam { get; set; }
@@ -15,12 +18,14 @@ namespace Tournament.ViewModels
         public TeamViewModel HomeTeam { get; set; }
         public string AwayTeamId { get; set; }
         public TeamViewModel AwayTeam { get; set; }
+        [Required]
         public ICollection<string> HomePlayerIds { get; set; } 
         public ICollection<PlayerViewModel> HomePlayers { get; set; }
+        [Required]
         public ICollection<string> AwayPlayerIds { get; set; } 
         public ICollection<PlayerViewModel> AwayPlayers { get; set; }
         public ICollection<CommentViewModel> Comments { get; set; }
-
+        public string LegId { get; set; }
         public IEnumerable<SelectListItem> HomeTeamsDataSource { get; set; }
         public IEnumerable<SelectListItem> AwayTeamsDataSource { get; set; }
         public IEnumerable<SelectListItem> HomePlayersDataSource { get; set; }

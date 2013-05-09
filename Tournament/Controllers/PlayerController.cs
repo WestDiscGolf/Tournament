@@ -36,7 +36,6 @@ namespace Tournament.Controllers
             }
 
             var vm = Mapper.Map<PlayerViewModel>(player);
-
             return View(vm);
         }
 
@@ -79,7 +78,7 @@ namespace Tournament.Controllers
             var model = RavenSession.Load<Player>(id);
             if (model == null)
             {
-                return HttpNotFound(string.Format("Team {0} does not exist", id));
+                return HttpNotFound(string.Format("Player {0} does not exist", id));
             }
             InitialiseTeamList();
             return View(Mapper.Map<PlayerViewModel>(model));

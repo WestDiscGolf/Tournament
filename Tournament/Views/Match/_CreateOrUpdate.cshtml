@@ -5,6 +5,8 @@
     <legend>Match details</legend>
         
     @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.LegId)
 
     <div class="editor-label">
         <label>Classification</label>
@@ -17,7 +19,6 @@
     </div>
     <div class="editor-field">
         @Html.DropDownListFor(model => model.HomeTeamId, Model.HomeTeamsDataSource, new { @class = "chzn-select", style = "width:350px;" })
-        @*@Html.DropDownList("HomeTeamId", (IEnumerable<SelectListItem>)ViewBag.HomeTeams, new { @class = "chzn-select", style = "width:350px;" })*@
         @Html.ValidationMessageFor(model => model.HomeTeamId)
     </div>
         
@@ -26,7 +27,6 @@
     </div>
     <div class="editor-field">
         @Html.DropDownListFor(model => model.AwayTeamId, Model.AwayTeamsDataSource, new { @class = "chzn-select", style = "width:350px;" })
-        @*@Html.DropDownList("AwayTeamId", (IEnumerable<SelectListItem>)ViewBag.AwayTeams, new { @class = "chzn-select", style = "width:350px;" })*@
         @Html.ValidationMessageFor(model => model.AwayTeamId)
     </div>
         
@@ -35,7 +35,6 @@
     </div>
     <div class="editor-field">
         @Html.ListBoxFor(model => model.HomePlayerIds, Model.HomePlayersDataSource, new { @class = "chzn-select", style = "width:350px;" })
-        @*@Html.ListBoxFor(model => model.HomePlayerIds, Model.HomePlayersDataSource, new { @class = "chzn-select", style = "width:350px;" })*@
         @Html.ValidationMessageFor(model => model.HomePlayerIds)
     </div>
         
@@ -44,7 +43,6 @@
     </div>
     <div class="editor-field">
         @Html.ListBoxFor(model => model.AwayPlayerIds, Model.AwayPlayersDataSource, new { @class = "chzn-select", style = "width:350px;" })
-        @*@Html.ListBox("AwayPlayerIds", (IEnumerable<SelectListItem>)ViewBag.AwayPlayers, new { @class = "chzn-select", style = "width:350px;" })*@
         @Html.ValidationMessageFor(model => model.AwayPlayerIds)
     </div>
         
@@ -53,11 +51,8 @@
     </div>
     <div class="editor-field">
         @Html.DropDownListFor(model => model.WinningTeamId, Model.WinningTeamsDataSource, new { @class = "chzn-select", style = "width:350px;" })
-        @*@Html.DropDownList("WinningTeamId", (IEnumerable<SelectListItem>)ViewBag.WinningTeams, new { @class = "chzn-select", style = "width:350px;" })*@
         @Html.ValidationMessageFor(model => model.WinningTeamId)
     </div>
-        
-    @Html.HiddenFor(model => model.Id)
 
     <p>
         <input type="submit" value="Save" />

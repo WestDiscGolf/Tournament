@@ -1,7 +1,7 @@
-﻿@model Tournament.ViewModels.MatchViewModel
+﻿@model Tournament.ViewModels.LegViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Create";
 }
 
 @section scripts{
@@ -14,7 +14,7 @@
     </script>
 }
 
-<h2>Edit</h2>
+<h2>Create</h2>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)

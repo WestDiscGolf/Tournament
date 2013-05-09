@@ -23,6 +23,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Draws)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Extras)
+        </th>
         <th></th>
     </tr>
 
@@ -39,6 +42,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Draws)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Extras)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

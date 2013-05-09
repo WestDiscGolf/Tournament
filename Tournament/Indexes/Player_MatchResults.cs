@@ -17,7 +17,8 @@ namespace Tournament.Indexes
                                              PlayerId = player.Id,
                                              Wins = 1,
                                              Losses = 0,
-                                             Draws = 0
+                                             Draws = 0,
+                                             Extras = 0
                                          }
                 );
 
@@ -29,7 +30,8 @@ namespace Tournament.Indexes
                                          PlayerId = player.Id,
                                          Wins = 0,
                                          Losses = 1,
-                                         Draws = 0
+                                         Draws = 0,
+                                         Extras = 0
                                      }
                 );
 
@@ -41,7 +43,8 @@ namespace Tournament.Indexes
                                          PlayerId = player.Id,
                                          Wins = 0,
                                          Losses = 1,
-                                         Draws = 0
+                                         Draws = 0,
+                                         Extras = 0
                                      }
                 );
 
@@ -53,7 +56,8 @@ namespace Tournament.Indexes
                                          PlayerId = player.Id,
                                          Wins = 1,
                                          Losses = 0,
-                                         Draws = 0
+                                         Draws = 0,
+                                         Extras = 0
                                      }
                 );
 
@@ -65,11 +69,22 @@ namespace Tournament.Indexes
                                          PlayerId = player.Id,
                                          Wins = 0,
                                          Losses = 0,
-                                         Draws = 1
+                                         Draws = 1,
+                                         Extras = 0
                                      }
                 );
 
-            // todo: add in the Extras here
+            AddMap<Leg>(legs => from leg in legs
+                                from extra in leg.Extras
+                                select new Result
+                                    {
+                                        PlayerId = extra.PlayerId,
+                                        Wins = 0,
+                                        Losses = 0,
+                                        Draws = 0,
+                                        Extras = 1
+                                    }
+                );
 
             Reduce = results => from result in results
                                 group result by result.PlayerId
@@ -79,7 +94,8 @@ namespace Tournament.Indexes
                                         PlayerId = r.Key,
                                         Wins = r.Sum(x => x.Wins),
                                         Losses = r.Sum(x => x.Losses),
-                                        Draws = r.Sum(x => x.Draws)
+                                        Draws = r.Sum(x => x.Draws),
+                                        Extras = r.Sum(x => x.Extras)
                                     };
 
             TransformResults = (database, results) => from result in results
@@ -90,7 +106,8 @@ namespace Tournament.Indexes
                                                           Player = player,
                                                           Wins = result.Wins,
                                                           Losses = result.Losses,
-                                                          Draws = result.Draws
+                                                          Draws = result.Draws,
+                                                          Extras = result.Extras
                                                       };
 
 
@@ -98,6 +115,7 @@ namespace Tournament.Indexes
             Index(x => x.Wins, FieldIndexing.Default);
             Index(x => x.Losses, FieldIndexing.Default);
             Index(x => x.Draws, FieldIndexing.Default);
+            Index(x => x.Extras, FieldIndexing.Default);
         }
     }
 
@@ -108,5 +126,6 @@ namespace Tournament.Indexes
         public int Wins { get; set; }
         public int Losses { get; set; }
         public int Draws { get; set; }
+        public int Extras { get; set; }
     }
 }
