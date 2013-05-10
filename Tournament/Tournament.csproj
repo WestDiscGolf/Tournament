@@ -202,6 +202,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Indexes\Leg_ScoresByTeam.cs" />
     <Compile Include="Indexes\Player_MatchResults.cs" />
     <Compile Include="Infrastructure\StringArrayModelBinder.cs" />
     <Compile Include="ViewModels\AccountModels.cs" />
@@ -457,6 +458,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Match\_Match.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Leg\Test.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

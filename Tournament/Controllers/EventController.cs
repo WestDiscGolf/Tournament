@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Tournament.Entities;
+using Tournament.Indexes;
 using Tournament.ViewModels;
 
 namespace Tournament.Controllers
@@ -26,6 +27,26 @@ namespace Tournament.Controllers
             }
 
             var vm = Mapper.Map<EventViewModel>(model);
+
+            vm.TeamScores = new Dictionary<string, double>();
+
+            var legs = RavenSession.Query<Leg>().Where(x => x.EventId == model.Id).ToList();
+            foreach (var leg in legs)
+            {
+                var scores = RavenSession.Query<Leg_ScoresByTeam.Result, Leg_ScoresByTeam>().Where(x => x.LegId == leg.Id).ToList();
+                foreach (var result in scores)
+                {
+                    if (vm.TeamScores.ContainsKey(result.TeamId))
+                    {
+                        vm.TeamScores[result.TeamId] += result.Total;
+                    }
+                    else
+                    {
+                        vm.TeamScores.Add(result.TeamId, result.Total);
+                    }
+                }
+            }
+
             vm.Teams = Mapper.Map<IEnumerable<TeamViewModel>>(RavenSession.Load<Team>(model.TeamIds));
             return View(vm);
         }

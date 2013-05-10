@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Tournament.Indexes.Player_MatchResults.Result>
+﻿@model IEnumerable<Tournament.Indexes.Leg_ScoresByTeam.Result>
 
 @{
     ViewBag.Title = "Test";
@@ -6,19 +6,16 @@
 
 <h2>Test</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.PlayerId)
+            @Html.DisplayNameFor(model => model.LegId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TeamId)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Wins)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Losses)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Draws)
@@ -26,25 +23,31 @@
         <th>
             @Html.DisplayNameFor(model => model.Extras)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total)
+        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @item.Player.FirstName @item.Player.LastName 
+            @item.LegId
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Team.Name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Wins)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Losses)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Draws)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Extras)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Total)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

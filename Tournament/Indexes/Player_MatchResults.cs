@@ -5,8 +5,18 @@ using Tournament.Entities;
 
 namespace Tournament.Indexes
 {
-    public class Player_MatchResults : AbstractMultiMapIndexCreationTask<Result>
+    public class Player_MatchResults : AbstractMultiMapIndexCreationTask<Player_MatchResults.Result>
     {
+        public class Result
+        {
+            public string PlayerId { get; set; }
+            public Player Player { get; set; }
+            public int Wins { get; set; }
+            public int Losses { get; set; }
+            public int Draws { get; set; }
+            public int Extras { get; set; }
+        }
+
         public Player_MatchResults()
         {
             AddMap<Match>(matches => from match in matches
@@ -117,15 +127,5 @@ namespace Tournament.Indexes
             Index(x => x.Draws, FieldIndexing.Default);
             Index(x => x.Extras, FieldIndexing.Default);
         }
-    }
-
-    public class Result
-    {
-        public string PlayerId { get; set; }
-        public Player Player { get; set; }
-        public int Wins { get; set; }
-        public int Losses { get; set; }
-        public int Draws { get; set; }
-        public int Extras { get; set; }
     }
 }

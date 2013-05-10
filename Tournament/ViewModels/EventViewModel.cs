@@ -15,8 +15,8 @@ namespace Tournament.ViewModels
 
         [Required]
         public ICollection<string> TeamIds { get; set; }
-        public IEnumerable<TeamViewModel> Teams { get; set; } 
+        public IEnumerable<TeamViewModel> Teams { get; set; }
 
-        // todo: scores
+        public IDictionary<string, double> TeamScores { get; set; } 
     }
 }

@@ -28,7 +28,7 @@
         @Html.LabelFor(model => model.Date)
     </div>
     <div class="editor-field">
-        @Html.EditorFor(model => model.Date)
+        @Html.TextBoxFor(model => model.Date, "{0:dd/MM/yyyy}")
         @Html.ValidationMessageFor(model => model.Date)
     </div>
     

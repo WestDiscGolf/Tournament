@@ -41,14 +41,14 @@
          @Html.DisplayNameFor(model => model.HomeTeamId)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.HomeTeam.Name)
+        @Html.DisplayFor(model => model.HomeTeam.Name) - @GetTotal(Model.HomeTeamId)
     </div>
 
     <div class="display-label">
          @Html.DisplayNameFor(model => model.AwayTeamId)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.AwayTeam.Name)
+        @Html.DisplayFor(model => model.AwayTeam.Name) - @GetTotal(Model.AwayTeamId)
     </div>
     
     @Html.ActionLink("Add extra", "Add", "Extra", new { legId = Model.Id, homeTeamId = Model.HomeTeamId, awayTeamId = Model.AwayTeamId }, null)
@@ -62,6 +62,8 @@
     
     @Html.ActionLink("Add match", "Create", "Match", new { legId = Model.Id, homeTeamId = Model.HomeTeamId, awayTeamId = Model.AwayTeamId }, null)
     
+    <hr/>
+    
     @{ Html.RenderAction("ByLeg", "Match", new {legId = Model.Id}); }
 
 </fieldset>
@@ -69,3 +71,12 @@
     @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+
+@functions
+{
+    public double GetTotal(string teamId)
+    {
+        return Model.TeamScores[teamId];
+    }
+}
