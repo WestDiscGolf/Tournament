@@ -33,6 +33,7 @@ namespace Tournament.ViewModels
         public string EventId { get; set; }
 
         public string[] TeamIds { get; set; }
+        public Dictionary<string, double> TeamScores { get; set; }
 
         //public ICollection<string> MatchIds { get; set; }
         //public ICollection<MatchViewModel> Matches { get; set; }

@@ -26,7 +26,7 @@
     <ul>
         @foreach (var teamViewModel in Model.Teams)
         {
-            <li>@teamViewModel.Name</li>
+            <li>@teamViewModel.Name - (@GetTotal(teamViewModel.Id))</li>
         }
     </ul>
     
@@ -41,3 +41,11 @@
     @Html.ActionLink("Edit", "Edit", new { id=Model.Id.Id() }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+@functions
+{
+    public double GetTotal(string teamId)
+    {
+        return Model.TeamScores[teamId];
+    }
+}

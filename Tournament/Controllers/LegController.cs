@@ -3,13 +3,21 @@ using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Tournament.Entities;
+using Tournament.Indexes;
 using Tournament.ViewModels;
 
 namespace Tournament.Controllers
 {
     public class LegController : BaseController
     {
-        public ActionResult Index(string matchId)
+        public ActionResult Test()
+        {
+            var results = RavenSession.Query<Leg_ScoresByTeam.Result, Leg_ScoresByTeam>().ToList();
+
+            return View(results);
+        }
+
+        public ActionResult Index()
         {
             var model = RavenSession.Query<Leg>().ToList();
             var vm = Mapper.Map<IEnumerable<LegViewModel>>(model);
@@ -25,6 +33,22 @@ namespace Tournament.Controllers
             }
 
             var vm = Mapper.Map<LegViewModel>(leg);
+
+            vm.TeamScores = new Dictionary<string, double>();
+
+            var scores = RavenSession.Query<Leg_ScoresByTeam.Result, Leg_ScoresByTeam>().Where(x => x.LegId == leg.Id).ToList();
+            foreach (var result in scores)
+            {
+                if (vm.TeamScores.ContainsKey(result.TeamId))
+                {
+                    vm.TeamScores[result.TeamId] += result.Total;
+                }
+                else
+                {
+                    vm.TeamScores.Add(result.TeamId, result.Total);
+                }
+            }
+
             return View(vm);
         }
 
