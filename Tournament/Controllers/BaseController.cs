@@ -9,22 +9,7 @@ namespace Tournament.Controllers
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            RavenSession = MvcApplication.Store.OpenSession();
-        }
-
-        protected override void OnActionExecuted(ActionExecutedContext filterContext)
-        {
-            if (filterContext.IsChildAction)
-                return;
-
-            using (RavenSession)
-            {
-                if (filterContext.Exception != null)
-                    return;
-
-                if (RavenSession != null)
-                    RavenSession.SaveChanges();
-            }
+            RavenSession = (IDocumentSession)HttpContext.Items[MvcApplication.CurrentRequestRavenSessionKey];
         }
     }
 }
