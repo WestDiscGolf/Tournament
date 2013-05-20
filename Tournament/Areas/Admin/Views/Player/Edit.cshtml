@@ -1,0 +1,19 @@
+﻿@model Tournament.ViewModels.PlayerViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    
+    @Html.Partial("_CreateOrUpdate")
+}
+
+@Html.ActionLink("Delete", "Delete", "Player", new { area = "Admin", id = Model.Id }, null)
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<section>
+    <h2>@Html.ActionLink("Players", "Index", "Player", new { area = "Admin" }, null)</h2>
+    <h2>@Html.ActionLink("Events", "Index", "Event", new { area = "Admin" }, null)</h2>
+    <h2>@Html.ActionLink("Teams", "Index", "Team", new { area = "Admin" }, null)</h2>
+    <h2>@Html.ActionLink("Matches", "Index", "Match", new { area = "Admin" }, null)</h2>
+</section>

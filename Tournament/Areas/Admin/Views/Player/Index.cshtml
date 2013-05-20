@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Tournament.ViewModels.PlayerViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<ul>
+    @foreach (var player in Model)
+    {
+        <li>@Html.ActionLink(player.FullName, "Edit", "player", new { area = "Admin", id = player.Id }, null)</li>
+    }
+</ul>
