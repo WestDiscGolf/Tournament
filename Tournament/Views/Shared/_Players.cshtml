@@ -1,0 +1,8 @@
+﻿@model IEnumerable<Tournament.ViewModels.PlayerViewModel>
+
+<ul>
+    @foreach (var player in Model)
+    {
+        <li>@Html.ActionLink(player.FullName, "detail", "player", new { id = player.Id.Id(), slug = player.Slug }, null)</li>
+    }
+</ul>

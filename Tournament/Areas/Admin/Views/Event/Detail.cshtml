@@ -1,0 +1,55 @@
+﻿@model Tournament.ViewModels.EventViewModel
+
+@{
+    ViewBag.Title = "Detail";
+}
+
+<h2>Detail</h2>
+
+<fieldset>
+    <legend>EventViewModel</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Slug)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Slug)
+    </div>
+    
+    <ul>
+        @foreach (var teamViewModel in Model.Teams)
+        {
+            <li>@teamViewModel.Name - (@GetTotal(teamViewModel.Id))</li>
+        }
+    </ul>
+    
+    @Html.ActionLink("Add leg", "Create", "Leg", new { eventId = Model.Id, teamIds = string.Join(",", Model.TeamIds) }, null)
+
+    <h3>Legs</h3>
+    
+    @{ Html.RenderAction("ByEvent", "Leg", new { area = "admin", eventId = Model.Id }); }
+
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id.Id() }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+@functions
+{
+    public double GetTotal(string teamId)
+    {
+        if (Model.TeamScores.ContainsKey(teamId))
+        {
+            return Model.TeamScores[teamId];   
+        }
+        return 0.0;
+    }
+}

@@ -1,0 +1,17 @@
+﻿@model Tournament.ViewModels.PlayerViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create a player</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    @Html.Partial("_CreateOrUpdate")
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -1,0 +1,74 @@
+﻿@using Tournament.Enumerations
+@model Tournament.ViewModels.MatchViewModel
+
+
+<fieldset>
+    <legend>Match details</legend>
+        
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.LegId)
+
+    <div class="editor-label">
+        <label>Classification</label>
+    </div>
+        
+    @Html.DropDownList("Classification", GetClassificationDataSource(), new { @class = "chzn-select", style = "width:350px;" })
+       
+    <div class="editor-label">
+        @Html.LabelFor(model => model.HomeTeam)
+    </div>
+    <div class="editor-field">
+        @Html.DropDownListFor(model => model.HomeTeamId, Model.HomeTeamsDataSource, new { @class = "chzn-select", style = "width:350px;" })
+        @Html.ValidationMessageFor(model => model.HomeTeamId)
+    </div>
+        
+    <div class="editor-label">
+        @Html.LabelFor(model => model.AwayTeam)
+    </div>
+    <div class="editor-field">
+        @Html.DropDownListFor(model => model.AwayTeamId, Model.AwayTeamsDataSource, new { @class = "chzn-select", style = "width:350px;" })
+        @Html.ValidationMessageFor(model => model.AwayTeamId)
+    </div>
+        
+    <div class="editor-label">
+        @Html.LabelFor(model => model.HomePlayers)
+    </div>
+    <div class="editor-field">
+        @Html.ListBoxFor(model => model.HomePlayerIds, Model.HomePlayersDataSource, new { @class = "chzn-select", style = "width:350px;" })
+        @Html.ValidationMessageFor(model => model.HomePlayerIds)
+    </div>
+        
+    <div class="editor-label">
+        @Html.LabelFor(model => model.AwayPlayers)
+    </div>
+    <div class="editor-field">
+        @Html.ListBoxFor(model => model.AwayPlayerIds, Model.AwayPlayersDataSource, new { @class = "chzn-select", style = "width:350px;" })
+        @Html.ValidationMessageFor(model => model.AwayPlayerIds)
+    </div>
+        
+    <div class="editor-label">
+        @Html.LabelFor(model => model.WinningTeam)
+    </div>
+    <div class="editor-field">
+        @Html.DropDownListFor(model => model.WinningTeamId, Model.WinningTeamsDataSource, new { @class = "chzn-select", style = "width:350px;" })
+        @Html.ValidationMessageFor(model => model.WinningTeamId)
+    </div>
+
+    <p>
+        <input type="submit" value="Save" />
+    </p>
+</fieldset>
+
+@functions
+{
+    public IEnumerable<SelectListItem> GetClassificationDataSource()
+    {
+        return from name in Enum.GetNames(typeof (Classification))
+               select new SelectListItem
+                   {
+                       Text = name,
+                       Value = name
+                   };
+    } 
+}

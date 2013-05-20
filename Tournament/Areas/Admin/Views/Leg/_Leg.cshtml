@@ -1,0 +1,8 @@
+﻿@model IEnumerable<Tournament.ViewModels.LegViewModel>
+
+<ul>
+    @foreach (var leg in Model)
+    {
+        <li>@leg.Date.ToShortDateString() - @Html.ActionLink(leg.Name, "detail", "leg", new { area = "Admin", id = leg.Id }, null) - @Html.ActionLink("edit", "edit", "leg", new { area = "Admin", id = leg.Id }, null) - @Html.ActionLink("delete", "delete", "leg", new { area = "Admin", id = leg.Id }, null)</li>
+    }
+</ul>

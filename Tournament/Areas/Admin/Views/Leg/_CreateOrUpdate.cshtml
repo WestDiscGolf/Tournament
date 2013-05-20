@@ -1,0 +1,73 @@
+﻿@model Tournament.ViewModels.LegViewModel
+
+<fieldset>
+    <legend>LegViewModel</legend>
+        
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.EventId)
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Name)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Name)
+        @Html.ValidationMessageFor(model => model.Name)
+    </div>
+    
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Slug)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Slug)
+        @Html.ValidationMessageFor(model => model.Slug)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Date)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Date, "{0:dd/MM/yyyy}")
+        @Html.ValidationMessageFor(model => model.Date)
+    </div>
+    
+    <div class="editor-label">
+        @Html.LabelFor(model => model.HomeTeam)
+    </div>
+    <div class="editor-field">
+        @Html.DropDownListFor(model => model.HomeTeamId, Model.TeamDataSource, new { @class = "chzn-select", style = "width:350px;" })
+    </div>
+    
+    <div class="editor-label">
+        @Html.LabelFor(model => model.AwayTeam)
+    </div>
+    <div class="editor-field">
+        @Html.DropDownListFor(model => model.AwayTeamId, Model.TeamDataSource, new { @class = "chzn-select", style = "width:350px;" })
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.HomeCaptainId)
+    </div>
+    <div class="editor-field">
+        @Html.DropDownListFor(model => model.HomeCaptainId, Model.PlayersDataSource, new { @class = "chzn-select", style = "width:350px;" })
+        @Html.ValidationMessageFor(model => model.HomeCaptainId)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.AwayCaptainId)
+    </div>
+    <div class="editor-field">
+        @Html.DropDownListFor(model => model.AwayCaptainId, Model.PlayersDataSource, new { @class = "chzn-select", style = "width:350px;" })
+        @Html.ValidationMessageFor(model => model.AwayCaptainId)
+    </div>
+    
+    <div>
+        <h2>Location</h2>
+        @Html.EditorFor(model => model.Location)    
+    </div>
+
+    <p>
+        <input type="submit" value="Save" />
+    </p>
+</fieldset>

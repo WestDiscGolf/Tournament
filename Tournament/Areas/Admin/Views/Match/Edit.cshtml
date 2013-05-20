@@ -1,0 +1,27 @@
+﻿@model Tournament.ViewModels.MatchViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@section scripts{
+    <script>
+
+        $().ready(function () {
+            $(".chzn-select").chosen();
+        });
+
+    </script>
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    @Html.Partial("_CreateOrUpdate")
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

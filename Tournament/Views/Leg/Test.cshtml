@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Tournament.Infrastructure.Indexes.Leg_ScoresByTeam.Result>
+
+@{
+    ViewBag.Title = "Test";
+}
+
+<h2>Test</h2>
+
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LegId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TeamId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Wins)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Draws)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Extras)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.LegId
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Team.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Wins)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Draws)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Extras)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Total)
+        </td>
+    </tr>
+}
+
+</table>
