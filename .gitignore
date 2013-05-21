@@ -66,7 +66,7 @@ _dotCover*/
 ~$*
 
 #NuGet
-!/packages/*/lib/*.dll
+packages/
 =======
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
 bin
