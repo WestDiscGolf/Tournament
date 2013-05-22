@@ -2,31 +2,61 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+        <title>@ViewBag.Title - Tournament Administration</title>
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <meta name="viewport" content="width=device-width" />
+        @Styles.Render("~/Content/bootstrap")
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
+        <style type="text/css">
+            body {
+                padding-top: 40px;
+                padding-bottom: 40px;
+            }
+        </style>
     </head>
     <body>
-        <header>
-            <h1>ADMIN</h1>
-        </header>
-        <div id="body">
-            @RenderSection("featured", required: false)
-            <section class="content-wrapper main-content clear-fix">
-                @RenderBody()
-            </section>
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    @Html.ActionLink("Tournament Administration", "Index", "Dashboard", null, new { @class = "brand", title = "Return to admin dashboard" })
+                    <div class="nav-collapse collapse">
+                        <ul class="nav">
+                            @if (Request.IsAuthenticated)
+                            {
+                                <li>@Html.ActionLink("Players", "Index", "Player", new { area = "Admin" }, null)</li>
+                                <li>@Html.ActionLink("Events", "Index", "Event", new { area = "Admin" }, null)</li>
+                                <li>@Html.ActionLink("Teams", "Index", "Team", new { area = "Admin" }, null)</li>
+                                <li>@Html.ActionLink("Matches", "Index", "Match", new { area = "Admin" }, null)</li>
+                                <li>@Html.ActionLink("Log out", "LogOut", "Login")</li>   
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-        <footer>
+
+        <div class="container">
+            @RenderSection("featured", required: false)
+            <div class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </div>
+            <footer>
             <div class="content-wrapper">
                 <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
+                    <p>&copy; @DateTime.Now.Year - adam storr</p>
                 </div>
             </div>
         </footer>
+        </div>        
 
         @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
         @RenderSection("scripts", required: false)
         @if ((Request.IsAuthenticated) && (!Settings.UseEmbedded))
         {
