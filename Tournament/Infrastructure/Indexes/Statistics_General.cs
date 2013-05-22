@@ -32,17 +32,7 @@ namespace Tournament.Infrastructure.Indexes
                                     select new Result
                                         {
                                             Events = 0,
-                                            Extras = 0,
-                                            Legs = 1,
-                                            Matches = 0,
-                                            Players = 0
-                                        });
-
-            AddMap<Extra>(extras => from extra in extras
-                                    select new Result
-                                        {
-                                            Events = 0,
-                                            Extras = 0,
+                                            Extras = leg.Extras.Count,
                                             Legs = 1,
                                             Matches = 0,
                                             Players = 0
