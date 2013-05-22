@@ -3,7 +3,6 @@ using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Tournament.Entities;
-using Tournament.Infrastructure;
 using Tournament.ViewModels;
 
 namespace Tournament.Areas.Admin.Controllers
@@ -40,9 +39,7 @@ namespace Tournament.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Create(string eventId, string[] teamIds)
         {
-            var vm = new LegViewModel();
-            vm.EventId = eventId;
-            vm.TeamIds = teamIds;
+            var vm = new LegViewModel {EventId = eventId, TeamIds = teamIds};
 
             SetupData(vm);
 
@@ -61,7 +58,7 @@ namespace Tournament.Areas.Admin.Controllers
                 leg.HomeTeam = RavenSession.Load<Team>(viewModel.HomeTeamId);
                 leg.AwayTeam = RavenSession.Load<Team>(viewModel.AwayTeamId);
                 RavenSession.Store(leg, "legs/");
-                return RedirectToAction("Detail", "Event", new { id = viewModel.EventId.Id() });
+                return RedirectToAction("Detail", "Event", new { id = viewModel.EventId });
             }
 
             SetupData(viewModel);
@@ -104,7 +101,7 @@ namespace Tournament.Areas.Admin.Controllers
                 leg.HomeTeam = RavenSession.Load<Team>(viewModel.HomeTeamId);
                 leg.AwayTeam = RavenSession.Load<Team>(viewModel.AwayTeamId);
                 RavenSession.Store(leg);
-                return RedirectToAction("Detail", "Event", new { id = viewModel.EventId.Id() });
+                return RedirectToAction("Detail", "Event", new { id = viewModel.EventId });
             }
 
             SetupData(viewModel);
@@ -134,7 +131,7 @@ namespace Tournament.Areas.Admin.Controllers
             }
             var eventId = model.EventId;
             RavenSession.Delete(model);
-            return RedirectToAction("Detail", "Event", new { id = eventId.Id() });
+            return RedirectToAction("Detail", "Event", new { id = eventId });
         }
 
         private void SetupData(LegViewModel viewModel)

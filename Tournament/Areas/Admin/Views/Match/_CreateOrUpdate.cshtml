@@ -56,7 +56,11 @@
     </div>
 
     <p>
-        <input type="submit" value="Save" />
+        <input type="submit" name="Save" value="Save" />
+        @if (ViewBag.SaveAndAddAnother)
+        {
+         <input type="submit" name="Save" value="Save and add another" />   
+        }
     </p>
 </fieldset>
 
@@ -64,11 +68,11 @@
 {
     public IEnumerable<SelectListItem> GetClassificationDataSource()
     {
-        return from name in Enum.GetNames(typeof (Classification))
+        return from name in Enum.GetNames(typeof(Classification))
                select new SelectListItem
-                   {
-                       Text = name,
-                       Value = name
-                   };
+               {
+                   Text = name,
+                   Value = name
+               };
     } 
 }

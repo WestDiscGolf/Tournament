@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Routing;
 using AutoMapper;
 using Tournament.Entities;
 using Tournament.Enumerations;
@@ -31,7 +32,7 @@ namespace Tournament.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public ActionResult Create(string homeTeamId = "", string awayTeamId = "", string legId = "")
+        public ActionResult Create(string homeTeamId = "", string awayTeamId = "", string legId = "", string save = "")
         {
             var vm = new MatchViewModel
             {
@@ -40,6 +41,7 @@ namespace Tournament.Areas.Admin.Controllers
                 LegId = legId
             };
 
+            ViewBag.SaveAndAddAnother = (string.Compare(save, "save", StringComparison.InvariantCultureIgnoreCase) != 0);
             InitialiseReferenceData(vm);
 
             return View(vm);
@@ -47,7 +49,7 @@ namespace Tournament.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(MatchViewModel viewModel)
+        public ActionResult Create(MatchViewModel viewModel, string save)
         {
             if (ModelState.IsValid)
             {
@@ -74,9 +76,18 @@ namespace Tournament.Areas.Admin.Controllers
                 entity.HomePlayers = RavenSession.Load<Player>(viewModel.HomePlayerIds);
                 entity.AwayPlayers = RavenSession.Load<Player>(viewModel.AwayPlayerIds);
                 RavenSession.Store(entity, "matches/");
-                return RedirectToAction("Index");
+
+                if (string.Compare(save, "save", StringComparison.InvariantCultureIgnoreCase) == 0)
+                {
+                    return RedirectToAction("Index");   
+                }
+                else
+                {
+                    return RedirectToAction("Create", "Match", new { save, homeTeamId = viewModel.HomeTeamId, awayTeamId = viewModel.AwayTeamId, legId = viewModel.LegId });
+                }
             }
 
+            ViewBag.SaveAndAddAnother = (string.Compare(save, "save", StringComparison.InvariantCultureIgnoreCase) != 0);
             InitialiseReferenceData(viewModel);
             return View(viewModel);
         }
@@ -94,6 +105,7 @@ namespace Tournament.Areas.Admin.Controllers
             vm.HomePlayerIds = vm.HomePlayers.Select(x => x.Id).ToList();
             vm.AwayPlayerIds = vm.AwayPlayers.Select(x => x.Id).ToList();
 
+            ViewBag.SaveAndAddAnother = false;
             InitialiseReferenceData(vm);
             return View(vm);
         }
@@ -130,6 +142,7 @@ namespace Tournament.Areas.Admin.Controllers
                 RavenSession.Store(entity);
                 return RedirectToAction("Index");
             }
+            ViewBag.SaveAndAddAnother = false;
             InitialiseReferenceData(viewModel);
             return View(viewModel);
         }
