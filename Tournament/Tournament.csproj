@@ -223,6 +223,7 @@
     </Compile>
     <Compile Include="Infrastructure\Indexes\Extras_ByPlayer.cs" />
     <Compile Include="Infrastructure\Indexes\Match_ByPlayer.cs" />
+    <Compile Include="Infrastructure\Indexes\Player_TeamCaptain.cs" />
     <Compile Include="Infrastructure\Indexes\Statistics_General.cs" />
     <Compile Include="Infrastructure\Indexes\Leg_ScoresByTeam.cs" />
     <Compile Include="Infrastructure\Indexes\Player_MatchResults.cs" />
@@ -306,6 +307,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\no_team_logo.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\chosen.jquery.js" />

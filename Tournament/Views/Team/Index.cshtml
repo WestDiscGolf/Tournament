@@ -24,11 +24,18 @@
 
 <div class="row">
     <div class="span12">
-        <ul>
+        <table class="">
             @foreach (var team in Model)
             {
-                <li>@Html.ActionLink(team.Name, "detail", new { id = team.Id.Id(), slug = team.Slug }, null)</li>   
+                <tr>
+                    <td>
+                        <img src="@Url.Content("~/Images/no_team_logo.png")" alt="@team.Name"/>
+                    </td>
+                    <td>
+                        <h2>@Html.ActionLink(team.Name, "detail", new { id = team.Id.Id(), slug = team.Slug }, null)</h2>
+                    </td>
+                </tr>
             }
-        </ul>
+        </table>
     </div>
 </div>

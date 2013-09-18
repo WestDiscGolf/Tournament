@@ -1,52 +1,55 @@
-﻿@model Tournament.ViewModels.TeamViewModel
+﻿@using Tournament.ViewModels
+@model TeamViewModel
 
 @{
     ViewBag.Title = "Detail";
 }
 
-<h2>Team Information</h2>
-
-<fieldset>
-    <legend>Team</legend>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Name)
+<div class="row">
+    <div class="span12">
+        <ul class="breadcrumb">
+            <li>
+                @Html.ActionLink("Home", "Index", "Home") <span class="divider">/</span>
+            </li>
+            <li>
+                @Html.ActionLink("Teams", "Index", "Team") <span class="divider">/</span>
+            </li>
+            <li class="active">
+                @Model.Name
+            </li>
+        </ul>
+        <div class="page-header">
+            <h1>
+                @Model.Name 
+            </h1>
+        </div>
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Name)
+</div>
+<div class="row">
+    <div class="span6">
+        Website: <a href="@Model.Website">@Model.Website</a>
     </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Website)
+    <div class="span6">
+        @if ((Model.HomeCourse != null) && (IsSet(Model.HomeCourse)))
+        {
+            @Html.DisplayFor(model => model.HomeCourse)
+        }
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Website)
+</div>
+<div class="row">
+    <div class="span12">
+        @*<h2>Captain(s)</h2>
+        @{ Html.RenderAction("TeamCaptains", "Player", new { teamId = Model.Id }); }*@
+        <h2>Players</h2>
+        @{ Html.RenderAction("ByTeam", "Player", new { teamId = Model.Id }); }
     </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Logo)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Logo)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Slug)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Slug)
-    </div>
+</div>
     
-    @Html.DisplayFor(model => model.HomeCourse)
-    
-    @Html.ActionLink("Add new player", "Create", "Player", new { teamId = Model.Id }, null)
-    
-    <h3>Players</h3>
-    
-    @{ Html.RenderAction("ByTeam", "Player", new { teamId = Model.Id }); }
-
-</fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+@functions
+{
+    public bool IsSet(LocationViewModel courseLocation)
+    {
+        return ((courseLocation.Latitude.HasValue && courseLocation.Latitude.Value != 0)
+                        && (courseLocation.Longitude.HasValue && courseLocation.Longitude.Value != 0));
+    }
+}

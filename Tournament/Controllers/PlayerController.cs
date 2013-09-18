@@ -40,5 +40,13 @@ namespace Tournament.Controllers
             var vm = Mapper.Map<IEnumerable<PlayerViewModel>>(players);
             return PartialView("_Players", vm);
         }
+
+        //[ChildActionOnly]
+        //public ActionResult TeamCaptains(string teamId)
+        //{
+        //    var players = RavenSession.Query<Player_TeamCaptain.Result, Player_TeamCaptain>().Where(x => x.TeamId == teamId).Select(x => x.Captain).ToList();
+        //    var vm = Mapper.Map<IEnumerable<PlayerViewModel>>(players);
+        //    return PartialView("_Players", vm);
+        //}
     }
 }
