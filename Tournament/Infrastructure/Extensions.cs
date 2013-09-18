@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace Tournament.Infrastructure
 {
@@ -8,6 +9,12 @@ namespace Tournament.Infrastructure
         {
             var split = ravenId.Split('/');
             return (split.Count() == 2) ? split[1] : split[0];
+        }
+
+        public static T Id<T>(this string ravenId)
+        {
+            var idPart = ravenId.Id();
+            return (T)Convert.ChangeType(idPart, typeof (T));
         }
     }
 }

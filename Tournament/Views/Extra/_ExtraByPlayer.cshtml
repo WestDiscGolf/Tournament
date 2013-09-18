@@ -1,0 +1,8 @@
+﻿@model IEnumerable<Tournament.Entities.Extra>
+
+<ul>
+    @foreach (var extra in Model)
+    {
+        <li>@extra.Name (@extra.Team.Name)</li>
+    }
+</ul>

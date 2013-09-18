@@ -1,4 +1,5 @@
-﻿@model Tournament.ViewModels.LegViewModel
+﻿@using Tournament.ViewModels
+@model Tournament.ViewModels.LegViewModel
 
 @{
     ViewBag.Title = "Detail";
@@ -51,8 +52,11 @@
         @Html.DisplayFor(model => model.AwayTeam.Name) - @GetTotal(Model.AwayTeamId)
     </div>
     
+    @{
+        var extras = (IEnumerable<ExtraViewModel>) ViewBag.Extras;
+    }
     <ul>
-    @foreach (var extra in Model.Extras)
+    @foreach (var extra in extras)
     {
         <li>@extra.Name - @extra.Player.FullName</li>
     }

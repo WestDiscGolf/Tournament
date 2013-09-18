@@ -37,7 +37,7 @@ namespace Tournament.ViewModels
 
         //public ICollection<string> MatchIds { get; set; }
         //public ICollection<MatchViewModel> Matches { get; set; }
-        public ICollection<ExtraViewModel> Extras { get; set; }
+        //public ICollection<ExtraViewModel> Extras { get; set; }
 
         public IEnumerable<SelectListItem> PlayersDataSource { get; set; }
         public IEnumerable<SelectListItem> TeamDataSource { get; set; }

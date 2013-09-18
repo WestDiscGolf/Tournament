@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using Tournament.Entities;
 using Tournament.Enumerations;
+using Tournament.Infrastructure.Indexes;
 using Tournament.ViewModels;
 
 namespace Tournament.Controllers
@@ -32,6 +33,16 @@ namespace Tournament.Controllers
             var model = RavenSession.Query<Match>().Customize(x => x.WaitForNonStaleResults(TimeSpan.FromSeconds(5))).Where(x => x.LegId == legId).ToList();
 
             var vm = Mapper.Map<IEnumerable<MatchViewModel>>(model);
+
+            return PartialView("_Match", vm);
+        }
+
+        public ActionResult ByPlayer(string playerId)
+        {
+            var model = RavenSession.Query<Match_ByPlayer.Result, Match_ByPlayer>().Where(x => x.PlayerId == playerId).ToList();
+
+            var matches = RavenSession.Load<Match>(model.Select(x => x.MatchId)).ToArray();
+            var vm = Mapper.Map<IEnumerable<MatchViewModel>>(matches);
 
             return PartialView("_Match", vm);
         }

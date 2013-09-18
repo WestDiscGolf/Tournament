@@ -15,12 +15,13 @@ namespace Tournament.Infrastructure.Indexes
             public int Losses { get; set; }
             public int Draws { get; set; }
             public int Extras { get; set; }
+            public int Count { get; set; }
         }
 
         public Player_MatchResults()
         {
             AddMap<Match>(matches => from match in matches
-                                     from player in match.HomePlayers.Select(x => x)
+                                     from player in match.HomePlayers
                                      where match.Result == Enumerations.Result.HomeWin
                                      select new Result
                                          {
@@ -28,12 +29,13 @@ namespace Tournament.Infrastructure.Indexes
                                              Wins = 1,
                                              Losses = 0,
                                              Draws = 0,
-                                             Extras = 0
+                                             Extras = 0,
+                                             Count = 0
                                          }
                 );
 
             AddMap<Match>(matches => from match in matches
-                                     from player in match.AwayPlayers.Select(x => x)
+                                     from player in match.AwayPlayers
                                      where match.Result == Enumerations.Result.HomeWin
                                      select new Result
                                      {
@@ -41,12 +43,13 @@ namespace Tournament.Infrastructure.Indexes
                                          Wins = 0,
                                          Losses = 1,
                                          Draws = 0,
-                                         Extras = 0
+                                         Extras = 0,
+                                         Count = 0
                                      }
                 );
 
             AddMap<Match>(matches => from match in matches
-                                     from player in match.HomePlayers.Select(x => x)
+                                     from player in match.HomePlayers
                                      where match.Result == Enumerations.Result.AwayWin
                                      select new Result
                                      {
@@ -54,12 +57,13 @@ namespace Tournament.Infrastructure.Indexes
                                          Wins = 0,
                                          Losses = 1,
                                          Draws = 0,
-                                         Extras = 0
+                                         Extras = 0,
+                                         Count = 0
                                      }
                 );
 
             AddMap<Match>(matches => from match in matches
-                                     from player in match.AwayPlayers.Select(x => x)
+                                     from player in match.AwayPlayers
                                      where match.Result == Enumerations.Result.AwayWin
                                      select new Result
                                      {
@@ -67,12 +71,13 @@ namespace Tournament.Infrastructure.Indexes
                                          Wins = 1,
                                          Losses = 0,
                                          Draws = 0,
-                                         Extras = 0
+                                         Extras = 0,
+                                         Count = 0
                                      }
                 );
 
             AddMap<Match>(matches => from match in matches
-                                     from player in match.HomePlayers.Select(x => x).Union(match.AwayPlayers.Select(x => x))
+                                     from player in match.HomePlayers.Union(match.AwayPlayers)
                                      where match.Result == Enumerations.Result.Draw
                                      select new Result
                                      {
@@ -80,21 +85,33 @@ namespace Tournament.Infrastructure.Indexes
                                          Wins = 0,
                                          Losses = 0,
                                          Draws = 1,
-                                         Extras = 0
+                                         Extras = 0,
+                                         Count = 0
                                      }
                 );
 
-            AddMap<Leg>(legs => from leg in legs
-                                from extra in leg.Extras
-                                select new Result
+            AddMap<Extra>(extras => from extra in extras
+                                    select new Result
                                     {
                                         PlayerId = extra.PlayerId,
                                         Wins = 0,
                                         Losses = 0,
                                         Draws = 0,
-                                        Extras = 1
+                                        Extras = 1,
+                                        Count = 0
                                     }
                 );
+
+            AddMap<Player>(players => from player in players
+                                          select new Result
+                                              {
+                                                  PlayerId = player.Id,
+                                                  Wins = 0,
+                                                  Losses = 0,
+                                                  Draws = 0,
+                                                  Extras = 0,
+                                                  Count = 1
+                                              });
 
             Reduce = results => from result in results
                                 group result by result.PlayerId
@@ -105,7 +122,8 @@ namespace Tournament.Infrastructure.Indexes
                                         Wins = r.Sum(x => x.Wins),
                                         Losses = r.Sum(x => x.Losses),
                                         Draws = r.Sum(x => x.Draws),
-                                        Extras = r.Sum(x => x.Extras)
+                                        Extras = r.Sum(x => x.Extras),
+                                        Count = r.Sum(x => x.Count)
                                     };
 
             TransformResults = (database, results) => from result in results
@@ -117,7 +135,8 @@ namespace Tournament.Infrastructure.Indexes
                                                           Wins = result.Wins,
                                                           Losses = result.Losses,
                                                           Draws = result.Draws,
-                                                          Extras = result.Extras
+                                                          Extras = result.Extras,
+                                                          Count = result.Count
                                                       };
 
 

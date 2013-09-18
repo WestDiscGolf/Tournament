@@ -1,55 +1,67 @@
-﻿@model IEnumerable<Tournament.Infrastructure.Indexes.Player_MatchResults.Result>
+﻿@model IEnumerable<Tournament.ViewModels.PlayerResultViewModel>
 
 @{
-    ViewBag.Title = "Test";
+    ViewBag.Title = "Players";
 }
 
-<h2>Test</h2>
+<div class="row">
+    <div class="span12">
+        <ul class="breadcrumb">
+            <li>
+                @Html.ActionLink("Home", "Index", "Home") <span class="divider">/</span>
+            </li>
+            <li class="active">
+                Players
+            </li>
+        </ul>
+        <div class="page-header">
+            <h1>
+                Players
+            </h1>
+        </div>
+    </div>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.PlayerId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Wins)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Losses)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Draws)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Extras)
-        </th>
-        <th></th>
-    </tr>
+<div class="row">
+    <div class="span12">
+        <table class="table table-bordered table-striped table-hover">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Player)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Wins)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Losses)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Draws)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Extras)
+                </th>
+            </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @item.Player.FirstName @item.Player.LastName 
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Wins)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Losses)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Draws)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Extras)
-        </td>
-        <td>
-            @Html.ActionLink("Details", "Detail", new { id = item.PlayerId.Id() })
-        </td>
-    </tr>
-}
-
-</table>
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.ActionLink(item.Player.FullName, "Detail", new { id = item.Player.Id.Id(), slug = item.Player.Slug })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Wins)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Losses)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Draws)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Extras)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
@@ -26,23 +27,11 @@ namespace Tournament.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var leg = RavenSession.Load<Leg>(vm.LegId);
-                if (leg == null)
-                {
-                    return HttpNotFound(string.Format("Leg {0} does not exist", vm.LegId));
-                }
-                if (leg.Extras == null)
-                {
-                    leg.Extras = new List<Extra>();
-                }
-
-                var extraCount = leg.Extras.Count;
                 var extra = Mapper.Map<Extra>(vm);
-                extra.Id = extraCount++;
                 extra.Player = RavenSession.Load<Player>(vm.PlayerId);
                 extra.Team = RavenSession.Load<Team>(vm.TeamId);
-                leg.Extras.Add(extra);
-                RavenSession.Store(leg);
+
+                RavenSession.Store(extra);
                 return RedirectToRoute(new { controller = "Leg", action = "Detail", id = vm.LegId });
             }
             SetupData(vm, vm.HomeTeamId, vm.AwayTeamId);
@@ -52,13 +41,8 @@ namespace Tournament.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Delete(int id, string legId)
         {
-            var leg = RavenSession.Load<Leg>(legId);
-            if (leg == null)
-            {
-                return HttpNotFound(string.Format("Leg {0} does not exist", legId));
-            }
+            var extra = RavenSession.Load<Extra>(id);
 
-            var extra = leg.Extras.FirstOrDefault(x => x.Id == id);
             if (extra == null)
             {
                 return HttpNotFound(string.Format("Extra {0} does not exist", id));
@@ -72,24 +56,14 @@ namespace Tournament.Areas.Admin.Controllers
         [ActionName("Delete")]
         public ActionResult ConfirmDelete(int id, string legId)
         {
-            var leg = RavenSession.Load<Leg>(legId);
-            if (leg == null)
-            {
-                return HttpNotFound(string.Format("Leg {0} does not exist", legId));
-            }
-
-            var extra = leg.Extras.FirstOrDefault(x => x.Id == id);
+            var extra = RavenSession.Load<Extra>(id);
             if (extra == null)
             {
                 return HttpNotFound(string.Format("Extra {0} does not exist", id));
             }
-            
-            if (leg.Extras.Remove(extra))
-            {
-                RavenSession.Store(leg);
-            }
+            RavenSession.Delete(extra);
 
-            return RedirectToAction("Detail", "Leg", new { id = legId.Id() });
+            return RedirectToAction("Detail", "Leg", new { id = legId });
         }
 
         private void SetupData(ExtraViewModel viewModel, string homeTeamId, string awayTeamId)

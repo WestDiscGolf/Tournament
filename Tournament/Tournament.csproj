@@ -198,6 +198,7 @@
     <Compile Include="Areas\Admin\Controllers\TeamController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Areas\Admin\Controllers\ExtraController.cs" />
+    <Compile Include="Controllers\ExtrasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\MatchController.cs" />
@@ -220,6 +221,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Indexes\Extras_ByPlayer.cs" />
+    <Compile Include="Infrastructure\Indexes\Match_ByPlayer.cs" />
     <Compile Include="Infrastructure\Indexes\Statistics_General.cs" />
     <Compile Include="Infrastructure\Indexes\Leg_ScoresByTeam.cs" />
     <Compile Include="Infrastructure\Indexes\Player_MatchResults.cs" />
@@ -234,6 +237,7 @@
     <Compile Include="ViewModels\LegViewModel.cs" />
     <Compile Include="ViewModels\LocationViewModel.cs" />
     <Compile Include="ViewModels\MatchViewModel.cs" />
+    <Compile Include="ViewModels\PlayerResultViewModel.cs" />
     <Compile Include="ViewModels\PlayerViewModel.cs" />
     <Compile Include="ViewModels\TeamViewModel.cs" />
   </ItemGroup>
@@ -526,6 +530,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\jquery-1.9.1.min.map" />
+    <Content Include="Views\Extra\_ExtraByPlayer.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

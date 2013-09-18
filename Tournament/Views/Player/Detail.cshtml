@@ -4,60 +4,54 @@
     ViewBag.Title = "Detail";
 }
 
-<h2>Detail</h2>
-
-<fieldset>
-    <legend>PlayerViewModel</legend>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.FirstName)
+<div class="row">
+    <div class="span12">
+        <ul class="breadcrumb">
+            <li>
+                @Html.ActionLink("Home", "Index", "Home") <span class="divider">/</span>
+            </li>
+            <li>
+                @Html.ActionLink("Players", "Index", "Player") <span class="divider">/</span>
+            </li>
+            <li class="active">
+                @Model.FullName
+            </li>
+        </ul>
+        <div class="page-header">
+            <h1>
+                @Model.FullName <small>@Model.Team.Name</small>
+            </h1>
+        </div>
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.FirstName)
+</div>
+@if (!string.IsNullOrWhiteSpace(Model.Description))
+{
+    <div class="row">
+        <div class="span12">
+            @Model.Description       
+        </div>
+    </div>    
+}
+@if (!string.IsNullOrWhiteSpace(Model.Twitter))
+{
+    <div class="row">
+        <div class="span12 page-header">
+             You can contact @Model.FirstName via <a href="http://twitter.com/@Model.Twitter">@@@Model.Twitter</a>
+        </div>
+        <!-- todo: add other optional details -->
+    </div>   
+}
+<div class="row">
+    <div class="span8">
+        <h3>
+            Previous match ups
+        </h3>
+        @Html.Action("ByPlayer", "Match", new { area = "", playerId = Model.Id })
     </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.LastName)
+    <div class="span4">
+        <h3>
+            Extras
+        </h3>
+        @Html.Action("ByPlayer", "Extra", new { area = "", playerId = Model.Id })
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.LastName)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.NickName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.NickName)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Twitter)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Twitter)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Slug)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Slug)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.FullName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.FullName)
-    </div>
-    
-   <div class="display-label">
-         @Html.DisplayNameFor(model => model.Team)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Team.Name)
-    </div>
-</fieldset>
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>
+</div>

@@ -17,6 +17,8 @@ namespace Tournament.ViewModels
         public string TeamId { get; set; }
         public TeamViewModel Team { get; set; }
 
+        public string Description { get; set; }
+
         public string FullName
         {
             get { return FirstName + " " + (string.IsNullOrWhiteSpace(NickName) ? "" : "\"" + NickName + "\" ") + LastName; }

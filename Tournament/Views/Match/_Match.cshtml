@@ -1,6 +1,57 @@
 ﻿@model IEnumerable<Tournament.ViewModels.MatchViewModel>
 
-@foreach (var match in Model)
+<table class="table table-striped">
+    @foreach (var match in Model)
+    {
+        <tr>
+            <td>
+                home players - @match.HomeTeam.Name 
+                <ul>
+                    @foreach (var item in match.HomePlayers)
+                    {
+                        <li>@item.FullName</li>
+                    }
+                </ul>
+            </td>
+            <td>
+                <ul style="list-style: none">
+                    <li>vs.</li>
+                    <li>@DisplayName(match.Result)</li>
+                </ul>
+            </td>
+            <td>
+                away players - @match.AwayTeam.Name
+                <ul>
+                    @foreach (var item in match.AwayPlayers)
+                    {
+                        <li>@item.FullName</li>
+                    }
+                </ul>
+            </td>
+        </tr>
+    @*todo: comments*@
+    }
+</table>
+
+@functions
 {
-    Html.RenderPartial("_MatchItem", match);
+    public string DisplayName(Result result)
+    {
+        var display = string.Empty;
+        switch (result)
+        {
+            case Result.HomeWin:
+                display = "Home Win";
+                break;
+
+            case Result.AwayWin:
+                display = "Away Win";
+                break;
+
+            case Result.Draw:
+                display = "Draw";
+                break;
+        }
+        return display;
+    }
 }

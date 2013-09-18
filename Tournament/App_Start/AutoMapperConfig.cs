@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Tournament.Entities;
+using Tournament.Infrastructure.Indexes;
 using Tournament.ViewModels;
 
 namespace Tournament
@@ -39,6 +40,10 @@ namespace Tournament
             // Extra
             Mapper.CreateMap<Extra, ExtraViewModel>();
             Mapper.CreateMap<ExtraViewModel, Extra>();
+
+
+            // Index -> VM
+            Mapper.CreateMap<Player_MatchResults.Result, PlayerResultViewModel>();
         }
     }
 }

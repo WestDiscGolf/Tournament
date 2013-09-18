@@ -4,11 +4,31 @@
     ViewBag.Title = "Teams";
 }
 
-<h2>Teams</h2>
+<div class="row">
+    <div class="span12">
+        <ul class="breadcrumb">
+            <li>
+                @Html.ActionLink("Home", "Index", "Home") <span class="divider">/</span>
+            </li>
+            <li class="active">
+                Teams
+            </li>
+        </ul>
+        <div class="page-header">
+            <h1>
+                Teams
+            </h1>
+        </div>
+    </div>
+</div>
 
-<ul>
-    @foreach (var team in Model)
-    {
-        <li>@Html.ActionLink(team.Name, "detail", new { id = team.Id.Id(), slug = team.Slug }, null)</li>   
-    }
-</ul>
+<div class="row">
+    <div class="span12">
+        <ul>
+            @foreach (var team in Model)
+            {
+                <li>@Html.ActionLink(team.Name, "detail", new { id = team.Id.Id(), slug = team.Slug }, null)</li>   
+            }
+        </ul>
+    </div>
+</div>

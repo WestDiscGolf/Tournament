@@ -1,33 +1,44 @@
-﻿@using Tournament.Infrastructure.Indexes
+﻿@using Tournament.Entities
+@using Tournament.Infrastructure.Indexes
 @{
     ViewBag.Title = "Home Page";
 }
-@section featured {
-    <section class="featured">
-        <div class="content-wrapper">
-            <hgroup class="title">
-                <h1>@ViewBag.Title.</h1>
-                <h2>@ViewBag.Message</h2>
-            </hgroup>
-            <p>
-                To learn more about ASP.NET MVC visit
-                <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
-                The page features <mark>videos, tutorials, and samples</mark> to help you get the most from ASP.NET MVC.
-                If you have any questions about ASP.NET MVC visit
-                <a href="http://forums.asp.net/1146.aspx/1?MVC" title="ASP.NET MVC Forum">our forums</a>.
-            </p>
-        </div>
-    </section>
-}
-<h3>Stats:</h3>
-@{
-    var stats = (Statistics_General.Result)ViewBag.Stats;
-}
+<div class="row">
+    <div class="span9">
+        <h1>Welcome to Hyzer cup</h1>
+        <p>
+            Welcome to HyzerCup.co.uk the home of the disc golf Ryder Cup style club tournament in the UK.
+        </p>
+        <p>
+            The event started in 2008 as a way to keep the competition level up and help include newer members to a competition format which isn't a full 2 day tour event. Historically
+            people found it can be a bit daunting moving from a 1 round club evening/weekend to a full BDGA tour weekend event. The teams are made up of disc golf veterans, spanning all
+            abilities through to people who have only played a few weeks/months. All are welcome to join.
+        </p>
+    </div>
+    <div class="span3"> 
+        <h3>Stats:</h3>
+        @{
+            var stats = (Statistics_General.Result)ViewBag.Stats;
+        }
 
-<ul>
-    <li>Players: @stats.Players</li>
-    <li>Events: @stats.Events</li>
-    <li>Legs: @stats.Legs</li>
-    <li>Matches: @stats.Matches</li>
-    <li>Extras: @stats.Extras</li>
-</ul>
+        <ul>
+            <li>Players: @stats.Players</li>
+            <li>Events: @stats.Events</li>
+            <li>Legs: @stats.Legs</li>
+            <li>Matches: @stats.Matches</li>
+            <li>Extras: @stats.Extras</li>
+        </ul>  
+    </div>
+</div>
+@{
+    var currentChamps = (Team) ViewBag.BestTeam;
+}
+@if (currentChamps != null)
+{
+    <div class="row">
+        <div class="span12">
+        
+            <h4>Current Holders - @Html.ActionLink(currentChamps.Name, "Detail", "Team", new { area = "", id = currentChamps.Id.Id(), slug = currentChamps.Slug }, null)</h4>
+        </div>
+    </div>    
+}

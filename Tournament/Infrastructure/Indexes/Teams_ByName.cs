@@ -10,15 +10,7 @@ namespace Tournament.Infrastructure.Indexes
         {
             Map = teams => from team in teams
                            orderby team.Name
-                           select new Team
-                               {
-                                   Id = team.Id,
-                                   Name = team.Name,
-                                   Logo = team.Logo,
-                                   Slug = team.Slug,
-                                   Website = team.Website,
-                                   HomeCourse = team.HomeCourse
-                               };
+                           select new {team.Name};
         }
     }
 }

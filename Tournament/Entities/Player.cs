@@ -8,5 +8,7 @@
         public string Twitter { get; set; }
         public string Slug { get; set; }
         public Team Team { get; set; }
+
+        public string Description { get; set; }
     }
 }

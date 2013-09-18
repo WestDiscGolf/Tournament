@@ -23,7 +23,8 @@ namespace Tournament.Areas.Admin.Controllers
             {
                 return HttpNotFound(string.Format("Leg {0} does not exist", id));
             }
-
+            var extras = RavenSession.Query<Extra>().Where(x => x.LegId == id);
+            ViewBag.Extras = Mapper.Map<IEnumerable<ExtraViewModel>>(extras);
             var vm = Mapper.Map<LegViewModel>(leg);
             return View(vm);
         }

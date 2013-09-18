@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Tournament.Entities;
+using Tournament.Infrastructure;
 using Tournament.Infrastructure.Indexes;
 using Tournament.ViewModels;
 
@@ -48,6 +49,9 @@ namespace Tournament.Controllers
                     vm.TeamScores.Add(result.TeamId, result.Total);
                 }
             }
+
+            var extras = RavenSession.Query<Extra>().Where(x => x.LegId == string.Format("leg/{0}", id)).ToList();
+            ViewBag.Extras = Mapper.Map<IEnumerable<ExtraViewModel>>(extras);
 
             return View(vm);
         }

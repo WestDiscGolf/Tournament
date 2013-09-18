@@ -63,11 +63,10 @@ namespace Tournament.Infrastructure.Indexes
                 );
 
             // extras
-            AddMap<Leg>(legs => from leg in legs
-                                from extra in leg.Extras
-                                select new Result
+            AddMap<Extra>(extras => from extra in extras
+                                    select new Result
                                     {
-                                        LegId = leg.Id,
+                                        LegId = extra.LegId,
                                         TeamId = extra.TeamId,
                                         Wins = 0,
                                         Draws = 0,
@@ -75,7 +74,7 @@ namespace Tournament.Infrastructure.Indexes
                                         Total = 0
                                     }
                 );
-
+            
             // reduce
             Reduce = results => from result in results
                                 group result by new { result.TeamId, result.LegId }

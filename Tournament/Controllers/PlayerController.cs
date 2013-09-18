@@ -12,15 +12,13 @@ namespace Tournament.Controllers
     {
         public ActionResult Index()
         {
-            // execute the query to allow for the IEnumerable mapping
-            //var players = RavenSession.Query<Player>().Customize(x => x.WaitForNonStaleResults(TimeSpan.FromSeconds(5))).ToList();
+            var results = RavenSession.Query<Player_MatchResults.Result, Player_MatchResults>()
+                .OrderByDescending(x => x.Wins)
+                .ThenByDescending(x => x.Draws)
+                .ThenByDescending(x => x.Extras)
+                .ThenBy(x => x.Losses).ToList();
 
-            //var vm = Mapper.Map<IEnumerable<PlayerViewModel>>(players);
-            //return View(vm);
-
-            var results = RavenSession.Query<Player_MatchResults.Result, Player_MatchResults>().OrderByDescending(x => x.Wins).ThenByDescending(x => x.Draws).ThenByDescending(x => x.Extras).ToList();
-
-            return View(results);
+            return View(Mapper.Map<IEnumerable<PlayerResultViewModel>>(results));
         }
 
         public ActionResult Detail(int id)

@@ -32,8 +32,18 @@ namespace Tournament.Infrastructure.Indexes
                                     select new Result
                                         {
                                             Events = 0,
-                                            Extras = leg.Extras.Count,
+                                            Extras = 0,
                                             Legs = 1,
+                                            Matches = 0,
+                                            Players = 0
+                                        });
+
+            AddMap<Extra>(extras => from extra in extras
+                                    select new Result
+                                        {
+                                            Events = 0,
+                                            Extras = 1,
+                                            Legs = 0,
                                             Matches = 0,
                                             Players = 0
                                         });
@@ -59,7 +69,7 @@ namespace Tournament.Infrastructure.Indexes
                                     });
 
             Reduce = statses => from result in statses
-                                group result by "contant"
+                                group result by "constant"
                                 into g
                                 select new Result
                                     {
